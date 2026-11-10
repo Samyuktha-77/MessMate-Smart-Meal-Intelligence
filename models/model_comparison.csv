@@ -1,0 +1,7 @@
+Model,MAE,RMSE,R2
+Linear Regression,14.398,18.665,0.935
+Gradient Boosting,14.94,19.262,0.931
+Tuned Random Forest (validation),15.647,19.955,0.925
+Random Forest,15.799,20.165,0.924
+Decision Tree,16.082,20.402,0.922
+Dummy baseline,60.883,73.351,-0.008

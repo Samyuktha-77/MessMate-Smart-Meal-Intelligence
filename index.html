@@ -1,0 +1,91 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="description" content="MessWise — university meal demand and food waste intelligence">
+<title>MessWise | Food intelligence, made practical</title>
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Manrope:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="/style.css">
+</head>
+<body>
+<header class="topbar">
+  <a class="brand" href="#home"><span class="brand-mark">m.</span><span>messwise<small>FOOD INTELLIGENCE</small></span></a>
+  <nav class="tabs" aria-label="Main navigation">
+    <a class="tab active" href="#home" data-tab="home">Overview</a>
+    <a class="tab" href="#forecast" data-tab="forecast">Prediction studio</a>
+    <a class="tab" href="#insights" data-tab="insights">Model insights</a>
+    <a class="tab" href="#about" data-tab="about">Project notes</a>
+  </nav>
+  <div class="top-status"><span class="pulse"></span> MODEL READY</div>
+</header>
+<main>
+<section id="home" class="page active">
+  <div class="hero">
+    <div class="hero-copy"><p class="eyebrow">INT395 · SUPERVISED LEARNING PROJECT</p>
+      <h1>Make every meal<br><em>count.</em></h1>
+      <p class="hero-text">A smarter way to estimate meal demand, plan portions and understand food waste in a university mess.</p>
+      <a class="cta" href="#forecast">Explore prediction studio <span>↗</span></a>
+    </div>
+    <div class="hero-art" aria-hidden="true"><div class="orbit orbit-one"></div><div class="orbit orbit-two"></div><div class="plate"><div class="plate-inner"><span>✳</span></div></div><div class="float-note note-a">PLAN WITH DATA <b>↗</b></div><div class="float-note note-b"><b>01</b> LESS GUESSWORK</div></div>
+    <div class="hero-index">01 <span>/ 04</span></div>
+  </div>
+  <div class="section-head"><div><p class="eyebrow">AT A GLANCE</p><h2>The mess, in numbers.</h2></div><p class="section-note">A simulated academic dataset<br>used to demonstrate the workflow.</p></div>
+  <div class="stat-grid">
+    <article class="stat-card"><span class="stat-label">MEAL RECORDS</span><strong>3,285</strong><span class="stat-foot">3 meals × 1,095 days</span></article>
+    <article class="stat-card accent"><span class="stat-label">DEMAND MODEL R²</span><strong>0.932</strong><span class="stat-foot">Held-out test segment</span></article>
+    <article class="stat-card"><span class="stat-label">DEMAND MAE</span><strong>15.47</strong><span class="stat-foot">Average absolute error · portions</span></article>
+    <article class="stat-card"><span class="stat-label">WASTE MAE</span><strong>11.50</strong><span class="stat-foot">Average absolute error · portions</span></article>
+  </div>
+  <div class="feature-band"><div><p class="eyebrow">THE IDEA</p><h2>From intuition<br>to informed preparation.</h2></div><p>MessWise uses meal context—such as day, weather, menu and expected attendance—to estimate how many portions may be consumed and how much food could remain under a proposed preparation plan.</p><a href="#about" class="text-link">How it works <span>→</span></a></div>
+</section>
+<section id="forecast" class="page">
+ <div class="page-heading"><p class="eyebrow">INTERACTIVE WORKSPACE · 02</p><h1>Prediction <em>studio.</em></h1><p>Set the context for an upcoming meal and run both trained regression models.</p></div>
+ <div class="studio-grid">
+  <form id="predict-form" class="form-panel">
+   <div class="panel-title"><span class="step">01</span><div><h2>Meal context</h2><p>Information available before preparation</p></div></div>
+   <div class="fields">
+    <label>Meal service<select name="meal_type"><option>Breakfast</option><option>Lunch</option><option>Dinner</option></select></label>
+    <label>Day of week<select name="day_of_week"><option>Monday</option><option>Tuesday</option><option>Wednesday</option><option>Thursday</option><option>Friday</option><option>Saturday</option><option>Sunday</option></select></label>
+    <label>Weather<select name="weather"><option>Sunny</option><option>Cloudy</option><option>Rainy</option></select></label>
+    <label>Menu category<select name="menu_category"><option>South Indian</option><option>North Indian</option><option>Rice-based</option><option>Continental</option><option>Snacks</option></select></label>
+    <label>Expected students<input name="expected_students" type="number" min="50" max="800" value="400" required></label>
+    <label>Planned portions<input name="portions_prepared" type="number" min="50" max="900" value="430" required></label>
+    <label class="toggle-field"><span>Public holiday?</span><select name="is_holiday"><option value="0">No</option><option value="1">Yes</option></select></label>
+    <label class="toggle-field"><span>Exam period?</span><select name="exam_period"><option value="0">No</option><option value="1">Yes</option></select></label>
+   </div>
+   <button class="run-button" type="submit">Run meal forecast <span>↗</span></button>
+   <p class="form-hint">Weekend status is automatically derived from the selected day.</p>
+  </form>
+  <div class="results-panel"><div class="panel-title"><span class="step">02</span><div><h2>Your forecast</h2><p id="result-subtitle">Your results will appear here</p></div></div>
+   <div id="empty-state" class="empty-state"><div class="empty-icon">↗</div><h3>Waiting for your inputs</h3><p>Complete the meal context and run a forecast to see the model estimates.</p></div>
+   <div id="results" class="results hidden">
+    <div class="result-primary"><span>ESTIMATED MEAL DEMAND</span><strong id="demand-result">—</strong><small>portions expected to be consumed</small></div>
+    <div class="result-pair"><div><span>SUGGESTED PREPARATION</span><strong id="prep-result">—</strong><small>includes a 4% planning buffer</small></div><div><span>ESTIMATED FOOD WASTE</span><strong id="waste-result">—</strong><small>under your planned quantity</small></div></div>
+    <div id="advice" class="advice"></div>
+   </div>
+   <p id="error" class="error hidden"></p>
+  </div>
+ </div>
+ <p class="disclaimer">Academic prototype: predictions come from models trained on simulated synthetic data. They are not validated operational advice.</p>
+</section>
+<section id="insights" class="page">
+ <div class="page-heading"><p class="eyebrow">MODEL PERFORMANCE · 03</p><h1>What the model <em>learned.</em></h1><p>Test-set metrics and the model comparison used in the supervised learning workflow.</p></div>
+ <div class="insight-grid">
+  <article class="insight-card dark"><p class="eyebrow">DEMAND REGRESSION</p><strong>0.932</strong><h3>R² score</h3><p>The selected demand model explains a large share of variation in the held-out synthetic test segment.</p></article>
+  <article class="insight-card"><p class="eyebrow">DEMAND ERROR</p><strong>15.47</strong><h3>MAE · portions</h3><p>On average, demand estimates differ from actual synthetic test values by about 15.5 portions.</p></article>
+  <article class="insight-card"><p class="eyebrow">WASTE ERROR</p><strong>11.50</strong><h3>MAE · portions</h3><p>Waste prediction is a more challenging task, with lower test-set R² of 0.420.</p></article>
+ </div>
+ <div class="comparison"><div class="comparison-heading"><div><p class="eyebrow">VALIDATION WORKFLOW</p><h2>Models considered</h2></div><span class="tag">LOWER MAE IS BETTER</span></div>
+ <div class="model-list"><div><span>01</span><b>Dummy baseline</b><small>Reference point</small></div><div><span>02</span><b>Linear regression</b><small>Selected demand model</small></div><div><span>03</span><b>Decision tree</b><small>Non-linear baseline</small></div><div><span>04</span><b>Random forest</b><small>Ensemble model</small></div><div><span>05</span><b>Gradient boosting</b><small>Boosted ensemble</small></div><div><span>06</span><b>Tuned random forest</b><small>RandomizedSearchCV + TimeSeriesSplit</small></div></div></div>
+</section>
+<section id="about" class="page">
+ <div class="page-heading"><p class="eyebrow">THE PROJECT · 04</p><h1>Behind <em>MessWise.</em></h1><p>A supervised learning prototype for university meal demand and food waste estimation.</p></div>
+ <div class="about-layout"><div class="about-main"><p class="eyebrow">PROJECT QUESTION</p><h2>Can meal context help us prepare closer to what students will actually consume?</h2><p>Two regression tasks are explored: predicting portions consumed and estimating food waste from planned preparation and pre-meal context. The workflow includes data preparation, chronological validation, model comparison, tuning and interpretation.</p></div>
+ <div class="about-side"><h3>Technology stack</h3><div class="chips"><span>Python</span><span>Scikit-learn</span><span>Pandas</span><span>Joblib</span><span>Vercel</span><span>HTML · CSS · JS</span></div><h3>Validation design</h3><p>Chronological split: 70% training, 15% validation and 15% final testing. This keeps the newest records held out for final evaluation.</p></div></div>
+ <div class="notice"><b>Dataset transparency</b><p>The current dataset is synthetic and simulated for academic demonstration. It does not contain actual university mess records. Results must not be presented as proof of real-world waste reduction. Real operational use requires consented records, retraining and validation.</p></div>
+</section>
+</main>
+<footer><a class="brand footer-brand" href="#home"><span class="brand-mark">m.</span><span>messwise<small>INT395 · SUPERVISED LEARNING</small></span></a><span>Plan smarter. Prepare better. Waste less.</span><span>ACADEMIC PROTOTYPE · 2026</span></footer>
+<script src="/app.js"></script>
+</body></html>
